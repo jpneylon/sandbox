@@ -1,2 +1,9 @@
-<RCC/>
-
+<RCC>
+    <qresource prefix="/icons">
+        <file>new.png</file>
+        <file>filefolder.jpg</file>
+        <file>save.png</file>
+        <file>close.jpg</file>
+        <file>Riddler.ico</file>
+    </qresource>
+</RCC>
