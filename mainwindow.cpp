@@ -12,3 +12,13 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_startButton_clicked()
+{
+    // start simulation
+}
+
+void MainWindow::on_endButton_clicked()
+{
+    // end simulation
+}
