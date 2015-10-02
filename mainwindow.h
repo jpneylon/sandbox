@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "simulationparameters.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,8 +18,15 @@ public:
 
 private slots:
 
+    void on_inputTotalEdit_returnPressed();
+
+    void on_inputObjectEdit_returnPressed();
+
+    void on_inputPerEdit_returnPressed();
+
 private:
     Ui::MainWindow *ui;
+    SimParams *parameters;
 };
 
 #endif // MAINWINDOW_H
