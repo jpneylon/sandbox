@@ -6,7 +6,7 @@
 #define DEFAULT_NUM_CELLS                      256
 #define DEFAULT_NUM_OBJECTS                1
 #define MAX_COLLIDER_COUNT                  10
-#define DEFAULT_PARTICLE_DIAMETER   0.01f
+#define DEFAULT_PARTICLE_DIAMETER   0.005f
 #define ACCEL_GRAV                                         9.80665f
 
 

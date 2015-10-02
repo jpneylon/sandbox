@@ -24,6 +24,10 @@ private slots:
 
     void on_inputPerEdit_returnPressed();
 
+    void on_inputCellEdit_returnPressed();
+
+    void on_oscIndexEdit_returnPressed();
+
 private:
     Ui::MainWindow *ui;
     SimParams *parameters;

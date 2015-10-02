@@ -12,19 +12,58 @@ MainWindow::MainWindow(QWidget *parent) :
 
     parameters = new SimParams;
     parameters->numParticles = DEFAULT_NUM_PARTICLES;
+    QString str;
+    str.setNum(parameters->numParticles);
+    ui->inputTotalEdit->setText(str);
+
     parameters->numObjects = DEFAULT_NUM_OBJECTS;
+    str.setNum(parameters->numObjects);
+    ui->inputObjectEdit->setText(str);
+
     parameters->numCells = DEFAULT_NUM_CELLS;
+    str.setNum(parameters->numCells);
+    ui->inputCellEdit->setText(str);
 
     parameters->oControl = 0;
+    ui->objControlSpinner->setValue(parameters->oControl);
+    ui->objControlSpinner->setMaximum(parameters->numObjects-1);
+
+    int slider;
     parameters->object = new ObjectParams[parameters->numObjects];
     for (unsigned int p=0; p<parameters->numObjects; p++)
     {
         parameters->object[p].mode = parameters->object->O_CUBE;
+
         parameters->object[p].damping = 0.1f;
+        str.setNum(parameters->object[p].damping);
+        ui->objDampValue->setText(str);
+        slider = parameters->object[p].damping * ui->objDampSlider->maximum();
+        ui->objDampSlider->setValue(slider);
+
         parameters->object[p].elasticity = 0.5f;
+        str.setNum(parameters->object[p].elasticity);
+        ui->objElasticValue->setText(str);
+        slider = parameters->object[p].elasticity * ui->objElasticSlider->maximum();
+        ui->objElasticSlider->setValue(slider);
+
         parameters->object[p].rigidity = 0.0f;
+        str.setNum(parameters->object[p].rigidity);
+        ui->objRigidValue->setText(str);
+        slider = parameters->object[p].rigidity * ui->objRigidSlider->maximum();
+        ui->objRigidSlider->setValue(slider);
+
         parameters->object[p].poissonRatio = 0.5f;
+        str.setNum(parameters->object[p].poissonRatio);
+        ui->objPoissonValue->setText(str);
+        slider = parameters->object[p].poissonRatio * ui->objPoissonSlider->maximum();
+        ui->objPoissonSlider->setValue(slider);
+
         parameters->object[p].volumeRatio = 1.0f;
+        str.setNum(parameters->object[p].volumeRatio);
+        ui->objPoissonValue->setText(str);
+        slider = 0.5f * (2.5f - parameters->object[p].volumeRatio) * ui->objPoissonSlider->maximum();
+        ui->objPoissonSlider->setValue(slider);
+
         parameters->object[p].youngsModulus = 5.0f;
     }
 
@@ -35,9 +74,6 @@ MainWindow::MainWindow(QWidget *parent) :
     parameters->latticeMode = parameters->L_FULL;
     parameters->mouseMode = parameters->M_VIEW;
     parameters->renderMode = parameters->R_SPHERES;
-
-    parameters->cellSize = 2 * DEFAULT_PARTICLE_DIAMETER * powf( (float)parameters->numParticles, 0.5f ) / (float)parameters->numCells;
-    parameters->worldSize = parameters->cellSize * (float)parameters->numCells;
 
     parameters->cCount = 1;
     parameters->cControl = 0;
@@ -56,8 +92,28 @@ MainWindow::MainWindow(QWidget *parent) :
 
     parameters->initialParticleRadius = 0.5f * DEFAULT_PARTICLE_DIAMETER;
     parameters->particleRadius = parameters->initialParticleRadius;
+    QString strRad;
+    strRad.setNum( parameters->particleRadius );
+    ui->particleRadValue->setText( strRad );
+
     parameters->particleSpacing = DEFAULT_PARTICLE_DIAMETER;
+    QString strSpace;
+    strSpace.setNum( parameters->particleSpacing );
+    ui->particleSpaceValue->setText( strSpace );
+
     parameters->particleMass = 1000.f * powf(DEFAULT_PARTICLE_DIAMETER, 3.f);
+    QString strMass;
+    strMass.setNum( parameters->particleSpacing );
+    ui->particleMassValue->setText( strMass );
+
+    parameters->cellSize = 2 * parameters->initialParticleRadius * powf( (float)parameters->numParticles, 0.5f ) / (float)parameters->numCells;
+    parameters->worldSize = parameters->cellSize * (float)parameters->numCells;
+    QString strWorld;
+    strWorld.setNum( parameters->worldSize );
+    ui->cubeSizeValue->setText( strWorld );
+    QString strCell;
+    strCell.setNum( parameters->cellSize );
+    ui->cubeCellValue->setText( strCell );
 
     parameters->oscillatorID = 0;
     parameters->oscillatorAxis = 0;
@@ -152,11 +208,39 @@ void MainWindow::on_inputPerEdit_returnPressed()
             QString str;
             str.setNum( parameters->numParticles );
             ui->inputTotalEdit->setText( str );
-
             parameters->systemStateChanged = true;
     }
     else
     {
-        qDebug() << "Please enter an integer number of objects.";
+        qDebug() << "Please enter an integer number of particles per object.";
+    }
+}
+
+void MainWindow::on_inputCellEdit_returnPressed()
+{
+    bool isInteger = false;
+    unsigned int value =ui->inputCellEdit->text().toInt(&isInteger);
+    if (isInteger)
+    {
+            parameters->numCells = value;
+            parameters->systemStateChanged = true;
+    }
+    else
+    {
+        qDebug() << "Please enter an integer number of cells along each dimension of the deformation space.";
+    }
+}
+
+void MainWindow::on_oscIndexEdit_returnPressed()
+{
+    bool isInteger = false;
+    unsigned int value =ui->oscIndexEdit->text().toInt(&isInteger);
+    if (isInteger && value < parameters->numParticles)
+    {
+            parameters->oscillatorID = value;
+    }
+    else
+    {
+        qDebug() << "Please enter an integer less than total number of particles as oscillator index.";
     }
 }

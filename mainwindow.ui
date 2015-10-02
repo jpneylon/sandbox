@@ -771,7 +771,23 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QDoubleSpinBox" name="simTimeSpinner"/>
+            <widget class="QDoubleSpinBox" name="simTimeSpinner">
+             <property name="decimals">
+              <number>3</number>
+             </property>
+             <property name="minimum">
+              <double>0.001000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.001000000000000</double>
+             </property>
+             <property name="value">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
            </item>
            <item row="1" column="0" colspan="2">
             <widget class="QCheckBox" name="simTimeCheck">
@@ -1426,14 +1442,14 @@
         <x>0</x>
         <y>20</y>
         <width>261</width>
-        <height>311</height>
+        <height>316</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="objectVertLayout">
        <item>
-        <layout class="QHBoxLayout" name="currentObjectHorizLayout">
+        <layout class="QHBoxLayout" name="objControlHorizLayout">
          <item>
-          <widget class="QLabel" name="currentObjectLayout">
+          <widget class="QLabel" name="objControlLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -1446,30 +1462,10 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="currentObjectCombo">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+          <widget class="QSpinBox" name="objControlSpinner">
+           <property name="maximum">
+            <number>0</number>
            </property>
-           <property name="minimumSize">
-            <size>
-             <width>30</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <item>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
           </widget>
          </item>
         </layout>
@@ -1647,7 +1643,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="ObjVolumeHorizLayout">
+        <layout class="QHBoxLayout" name="objVolumeHorizLayout">
          <item>
           <widget class="QLabel" name="objVolumeLabel">
            <property name="sizePolicy">
@@ -2534,7 +2530,7 @@
    <zorder>label_6</zorder>
    <zorder>colMassValue</zorder>
    <zorder>currentObjectCombo</zorder>
-   <zorder>currentObjectLayout</zorder>
+   <zorder>objControlLabel</zorder>
    <zorder>frame</zorder>
    <zorder>frame_2</zorder>
    <zorder>frame_3</zorder>
